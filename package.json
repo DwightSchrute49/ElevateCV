@@ -1,0 +1,14 @@
+{
+  "name": "ai-resume-workspace",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npx concurrently \"npm --prefix Backend run dev\" \"npm --prefix Frontend run dev\"",
+    "dev:backend": "npm --prefix Backend run dev",
+    "dev:frontend": "npm --prefix Frontend run dev"
+  },
+  "dependencies": {
+    "multer": "^2.2.0",
+    "pdf-parse": "^2.4.5"
+  }
+}
