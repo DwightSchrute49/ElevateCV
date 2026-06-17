@@ -17,7 +17,8 @@ async function connectToDB() {
         return;
       } catch (err) {
         lastError = err;
-        console.warn(`failed to connect using ${uri}`);
+        console.error(`failed to connect using ${uri}`);
+        console.error(err);
       }
     }
 
