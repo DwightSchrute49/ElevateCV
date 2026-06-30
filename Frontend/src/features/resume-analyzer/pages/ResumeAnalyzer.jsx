@@ -27,6 +27,8 @@ function ResumeAnalyzer() {
   const [jobDescription, setJobDescription] = useState("");
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [progressLabel, setProgressLabel] = useState("Ready to analyze");
   const [error, setError] = useState("");
 
   const handleFileChange = (event) => {
@@ -45,6 +47,8 @@ function ResumeAnalyzer() {
   const handleAnalyze = async (event) => {
     event.preventDefault();
     setError("");
+    setProgress(0);
+    setProgressLabel("Ready to analyze");
 
     if (!resumeFile) {
       setError("Upload your resume as a PDF before analyzing it.");
@@ -58,16 +62,24 @@ function ResumeAnalyzer() {
 
     try {
       setLoading(true);
+      setProgress(10);
+      setProgressLabel("Reading your resume");
       const resumeBase64 = await readFileAsDataUrl(resumeFile);
 
+      setProgress(40);
+      setProgressLabel("Preparing the analysis request");
       const response = await analyzeResume({
         resumeName: resumeFile.name,
         resumeBase64,
         jobDescription: jobDescription.trim(),
       });
 
+      setProgress(100);
+      setProgressLabel("Analysis complete");
       setAnalysis(response.analysis || response.report?.analysis || null);
     } catch (analysisError) {
+      setProgress(0);
+      setProgressLabel("Analysis failed");
       setError(
         analysisError?.response?.data?.message ||
           analysisError?.message ||
@@ -147,8 +159,30 @@ function ResumeAnalyzer() {
 
             {error && <div className="resume-analyzer__error">{error}</div>}
 
+            <div className="resume-analyzer__progress" aria-live="polite">
+              <div className="resume-analyzer__progress-row">
+                <span>Analysis status</span>
+                <strong>
+                  {loading ? `${progress}%` : progress === 100 ? "100%" : "0%"}
+                </strong>
+              </div>
+              <div className="resume-analyzer__progress-track">
+                <div
+                  className="resume-analyzer__progress-fill"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <p>
+                {loading
+                  ? progressLabel
+                  : progress === 100
+                    ? "Analysis complete"
+                    : progressLabel}
+              </p>
+            </div>
+
             <button type="submit" disabled={loading}>
-              {loading ? "Analyzing resume..." : "Analyze resume"}
+              {loading ? `Analyzing resume... ${progress}%` : "Analyze resume"}
             </button>
           </form>
 

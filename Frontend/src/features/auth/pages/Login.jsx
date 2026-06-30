@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../auth.scss";
-import { useAuth } from "../hooks/useAuth";
+
+const apiBaseUrl = (
+  import.meta.env.VITE_API_URL || "http://localhost:5000"
+).replace(/\/$/, "");
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +13,10 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const startOAuthLogin = (provider) => {
+    window.location.href = `${apiBaseUrl}/api/auth/oauth/${provider}`;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,8 +46,8 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
 
-      // Navigate to dashboard or home
-      navigate("/dashboard");
+      // Navigate to the deployed app shell
+      navigate("/");
     } catch (err) {
       setError("An error occurred. Please try again.");
       console.error(err);
@@ -117,9 +124,25 @@ const Login = () => {
         </div>
 
         <div className="social-auth">
-          <button className="social-btn">Google</button>
-          <button className="social-btn">GitHub</button>
+          <button
+            type="button"
+            className="social-btn"
+            onClick={() => startOAuthLogin("google")}
+          >
+            Continue with Google
+          </button>
+          <button
+            type="button"
+            className="social-btn"
+            onClick={() => startOAuthLogin("github")}
+          >
+            Continue with GitHub
+          </button>
         </div>
+
+        <p className="oauth-note">
+          OAuth 2.0 sign-in uses your deployed backend session.
+        </p>
 
         <div className="auth-footer">
           <p>

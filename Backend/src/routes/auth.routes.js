@@ -8,6 +8,25 @@ const authMiddleware = require("../middlewares/auth.middleware");
 authRouter.post("/register", authController.registerUserController);
 
 /**
+ * @route GET /api/auth/oauth/:provider
+ * @description start OAuth 2.0 login with Google or GitHub
+ * @access public
+ */
+
+authRouter.get("/oauth/:provider", authController.startOAuthController);
+
+/**
+ * @route GET /api/auth/oauth/:provider/callback
+ * @description finish OAuth 2.0 login and issue the app session cookie
+ * @access public
+ */
+
+authRouter.get(
+  "/oauth/:provider/callback",
+  authController.oauthCallbackController,
+);
+
+/**
  * @route POST /api/auth/login
  * @description login user with email and password
  * @access public

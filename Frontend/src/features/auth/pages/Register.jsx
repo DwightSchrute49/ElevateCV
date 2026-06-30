@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../auth.scss";
 
+const apiBaseUrl = (
+  import.meta.env.VITE_API_URL || "http://localhost:5000"
+).replace(/\/$/, "");
+
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -13,6 +17,10 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
+
+  const startOAuthLogin = (provider) => {
+    window.location.href = `${apiBaseUrl}/api/auth/oauth/${provider}`;
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -215,9 +223,25 @@ const Register = () => {
         </div>
 
         <div className="social-auth">
-          <button className="social-btn">Google</button>
-          <button className="social-btn">GitHub</button>
+          <button
+            type="button"
+            className="social-btn"
+            onClick={() => startOAuthLogin("google")}
+          >
+            Continue with Google
+          </button>
+          <button
+            type="button"
+            className="social-btn"
+            onClick={() => startOAuthLogin("github")}
+          >
+            Continue with GitHub
+          </button>
         </div>
+
+        <p className="oauth-note">
+          OAuth 2.0 sign-in uses your deployed backend session.
+        </p>
 
         <div className="auth-footer">
           <p>
