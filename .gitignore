@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+Backend/node_modules/
+Frontend/node_modules/
+
+# Environment files
+.env
+Backend/.env
+Frontend/.env
+
+# Build folders
+dist/
+build/
+Frontend/dist/
+Backend/dist/
+
+# Logs
+npm-debug.log*
