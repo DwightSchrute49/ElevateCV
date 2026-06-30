@@ -7,6 +7,10 @@ import { Navigate } from "react-router";
 export const router = createBrowserRouter([
   {
     path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/dashboard",
     element: <ResumeAnalyzer />,
   },
   {

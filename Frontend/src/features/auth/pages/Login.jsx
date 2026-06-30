@@ -25,7 +25,7 @@ const Login = () => {
 
     try {
       // API call to backend login endpoint
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${apiBaseUrl}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,8 +46,8 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
 
-      // Navigate to the deployed app shell
-      navigate("/");
+      // Send authenticated users to the dashboard view
+      navigate("/dashboard");
     } catch (err) {
       setError("An error occurred. Please try again.");
       console.error(err);

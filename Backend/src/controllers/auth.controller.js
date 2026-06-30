@@ -424,7 +424,7 @@ async function oauthCallbackController(req, res) {
     const token = signAuthToken(user);
     res.cookie("token", token, getCookieOptions());
 
-    return res.redirect(getAppRedirectUrl("/"));
+    return res.redirect(getAppRedirectUrl("/login?oauth=success"));
   } catch (err) {
     console.error(`${provider} oauth callback error:`, err);
     return res.redirect(getAppRedirectUrl("/login?oauth=error"));
