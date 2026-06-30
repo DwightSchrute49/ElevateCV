@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../auth.scss";
+import OAuthButton from "../components/OAuthButton";
 
 const apiBaseUrl = (
   import.meta.env.VITE_API_URL || "http://localhost:5000"
@@ -124,20 +125,14 @@ const Login = () => {
         </div>
 
         <div className="social-auth">
-          <button
-            type="button"
-            className="social-btn"
+          <OAuthButton
+            provider="google"
             onClick={() => startOAuthLogin("google")}
-          >
-            Continue with Google
-          </button>
-          <button
-            type="button"
-            className="social-btn"
+          />
+          <OAuthButton
+            provider="github"
             onClick={() => startOAuthLogin("github")}
-          >
-            Continue with GitHub
-          </button>
+          />
         </div>
 
         <p className="oauth-note">

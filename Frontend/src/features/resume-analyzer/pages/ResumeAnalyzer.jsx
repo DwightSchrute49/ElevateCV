@@ -97,10 +97,10 @@ function ResumeAnalyzer() {
 
       <section className="resume-analyzer__shell">
         <header className="resume-analyzer__hero">
-          <p className="resume-analyzer__eyebrow">AI resume builder</p>
+          <p className="resume-analyzer__eyebrow">AI-resume analyser</p>
           <h1>See what your resume is missing before you apply.</h1>
           <p className="resume-analyzer__hero-copy">
-            Upload a PDF resume, paste a job description, and Gemini will
+            Upload a PDF resume, paste a job description, and AI will
             highlight missing skills, ATS keywords, and the best additions to
             make.
           </p>
@@ -128,7 +128,7 @@ function ResumeAnalyzer() {
                 <p className="resume-analyzer__panel-kicker">Input</p>
                 <h2>Upload resume and describe the job</h2>
               </div>
-              <span className="resume-analyzer__pill">Gemini powered</span>
+              <span className="resume-analyzer__pill">AI-powered</span>
             </div>
 
             <label className="resume-analyzer__upload">
